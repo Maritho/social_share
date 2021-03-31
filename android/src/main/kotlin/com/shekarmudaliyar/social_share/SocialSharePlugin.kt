@@ -66,6 +66,32 @@ class SocialSharePlugin(private val registrar: Registrar):  MethodCallHandler {
             } else {
                 result.success("error")
             }
+        } else if (call.method == "shareInstagramFeed") {
+            //share on instagram story
+            //native share options
+
+            val content: String? = call.argument("content")
+            val image: String? = call.argument("image")
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+
+            if(image!=null){
+                //check if  image is also provided
+                val imagefile =  File(registrar.activeContext().cacheDir,image)
+                val imageFileUri = FileProvider.getUriForFile(registrar.activeContext(), registrar.activeContext().applicationContext.packageName + ".com.shekarmudaliyar.social_share", imagefile)
+                intent.type = "image/*"
+                intent.putExtra(Intent.EXTRA_STREAM,imageFileUri)
+            } else {
+                intent.type = "text/plain";
+            }
+
+            intent.putExtra(Intent.EXTRA_TEXT, content)
+
+            //create chooser intent to launch intent
+            //source: "share" package by flutter (https://github.com/flutter/plugins/blob/master/packages/share/)
+            intent.setPackage("com.instagram.android" /* dialog title optional */)
+            registrar.activeContext().startActivity(intent)
+            result.success(true)
         } else if (call.method == "shareFacebookStory") {
             //share on facebook story
             val stickerImage: String? = call.argument("stickerImage")

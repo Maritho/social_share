@@ -74,11 +74,11 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () async {
                     await screenshotController.capture().then((image) async {
                       SocialShare.shareInstagramStory(
-                        image.path,
+                        File.fromRawPath(image).path,
                         backgroundTopColor: "#ffffff",
                         backgroundBottomColor: "#000000",
                         attributionURL: "https://deep-link-url",
-                        backgroundImagePath: image.path,
+                        backgroundImagePath: File.fromRawPath(image).path,
                       ).then((data) {
                         print(data);
                       });
@@ -92,7 +92,7 @@ class _MyAppState extends State<MyApp> {
                       //facebook appId is mandatory for andorid or else share won't work
                       Platform.isAndroid
                           ? SocialShare.shareFacebookStory(
-                              image.path,
+                              File.fromRawPath(image).path,
                               "#ffffff",
                               "#000000",
                               "https://google.com",
@@ -101,7 +101,7 @@ class _MyAppState extends State<MyApp> {
                               print(data);
                             })
                           : SocialShare.shareFacebookStory(
-                              image.path,
+                              File.fromRawPath(image).path,
                               "#ffffff",
                               "#000000",
                               "https://google.com",

@@ -82,7 +82,7 @@
        } else {
            result(@"not supported or no facebook installed");
        }
-    } else if ([@"shareFacebookStory" isEqualToString:call.method]) {
+    } else if ([@"shareFacebookFeed" isEqualToString:call.method]) {
         NSString *stickerImage = call.arguments[@"stickerImage"];
         NSString *backgroundTopColor = call.arguments[@"backgroundTopColor"];
         NSString *backgroundBottomColor = call.arguments[@"backgroundBottomColor"];
